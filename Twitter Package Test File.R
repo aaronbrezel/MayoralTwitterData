@@ -7,9 +7,13 @@ install.packages("httpuv")
 library(httpuv)
 library(twitteR)
 
-getTwitterOAuth("lmDdwehy7ZnAUPh5AH6Y3fbAR","2A62GUU7eshn5lZ3rHZ0MsepkFgbwG4qegMya4AyoydEmFxKQa")
-setup_twitter_oauth("lmDdwehy7ZnAUPh5AH6Y3fbAR","2A62GUU7eshn5lZ3rHZ0MsepkFgbwG4qegMya4AyoydEmFxKQa")
-oauth_listener
+#getTwitterOAuth("lmDdwehy7ZnAUPh5AH6Y3fbAR","2A62GUU7eshn5lZ3rHZ0MsepkFgbwG4qegMya4AyoydEmFxKQa")
+
+
+setup_twitter_oauth("lmDdwehy7ZnAUPh5AH6Y3fbAR","2A62GUU7eshn5lZ3rHZ0MsepkFgbwG4qegMya4AyoydEmFxKQa") #starts the twitteR session
+
+
+#oauth_listener
 
 searchTwitter("Donald Trump", n=5, lang = "en")
 
