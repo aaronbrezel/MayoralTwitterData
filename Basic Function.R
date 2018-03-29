@@ -12,4 +12,11 @@ twitterStatusDF <- function(handles){
 mayoralData  <- read.csv("Official Mayors List.csv", na.strings = c("N/A", NA))
 mayoralHandlesNull <- as.vector(mayoralData$Twitter_handle)
 mayoralHandles <- mayoralHandlesNull[!is.na(mayoralHandlesNull)]
+
+microbenchmark(statusCollector('MartyHandlon'), times = 3) ## ~13 seconds per mayor
+microbenchmark(twitterStatusDF('MartyHandlon'), times = 3) ## ~14 seconds per mayor
+
 attempt <- twitterStatusDF(c('MartyHandlon','MayorHam', 'WoodfinForBham'))
+
+##DO NOT RUN UNTIL ON ECON LAB COMPUTERS
+##BigAssData <- twitterStatusDF(mayoralHandles)
