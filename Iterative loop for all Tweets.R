@@ -35,18 +35,17 @@ library(Rcpp)
 
 lydaTweets <- twitterStatusDF(lyda)
          
-         
-         twListToDF(userTimeline(as.character(lydaKrewson), n = 1))
-         
-         tweetDF
+options(scipen=999) #Removes scientific notation. to revert, set scipen back to 0    
+     
 getTweetData <- function(handle){
   tweetDF <- NULL
   maxId <- "100000000000000000000000000000000000"
   lastTweetID <- NULL
-  while(exitClause){
+  while(0 < 1){
          tweetDF <- rbind(tweetDF,twListToDF(userTimeline(handle, n = 3200, includeRts = TRUE, excludeReplies = FALSE, maxID = maxId))) #rbind combines dataframes
          
          maxId <- tweetDF$id[nrow(tweetDF)] #this is done so we now set the max id search to the very last tweet the current iteration was able to pick up
+         
          
          
          if(tweetDF$created[nrow(tweetDF)] < "2012-01-01 00:00:00 UTC"){ #tests to see whether the last entry (tweet) in the dataframe was made before Jan. 1, 2012. If that is the case, then we end the loop
@@ -57,28 +56,23 @@ getTweetData <- function(handle){
   }
   tweetDF <- tweetDF[!(duplicated(tweetDF$id)),]
   return(tweetDF)
-  }
+}
          
-         
-         getTweetData(lyda)
-         
-         for(i in )
-         
-         tweetDF <- twListToDF(userTimeLine(handle, n = 3200, includeRts = TRUE, excludeReplies = FALSE))
-         
-         }
-         
-         while(exit){
-         
-         
-         if()
-         }
-         options(scipen=999) #to revert, set scipen back to 0
-lydaTweets$id[nrow(lydaTweets)]         
-a<-(as.double(lydaTweets$id[nrow(lydaTweets)]))
-?as.numeric
 
-a*10
+lydaTweets$id[4]
+head(lydaTweets)
+for(i in 1:)
+
+
+        
+lydaTweets$id[nrow(lydaTweets)]         
+lydaTweets$id[nrow(lydaTweets)]
+
+test <- getUser("LittleRockMayor")
+
+LittleRockTweets <- twListToDF(userTimeline(test, n = 3200, includeRts = TRUE, excludeReplies = FALSE))
+
+lydaTest
 
 
 
