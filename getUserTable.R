@@ -1,5 +1,5 @@
 
-
+#####Saving as a model, but there was a function that did this already
 lyda <- getUser('lydaKrewson')
 class(lyda$name)
 getUserTable <- data.frame(name = character(0), screenName= character(0), id = numeric(0), 
@@ -19,6 +19,10 @@ lydaValues <- t(assignToVector(lyda))
 lydaValues
 getUserTable[1,] <- lydaValues
 
-###The line below does the same thing appearantly
+###Below function works
 
-amIdumb <- twListToDF(lookupUsers('lydakrewson'))
+
+userTable <- function(userHandles){
+ return(twListToDF(lookupUsers(userHandles)))
+}
+
