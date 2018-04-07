@@ -19,3 +19,6 @@ lydaValues <- t(assignToVector(lyda))
 lydaValues
 getUserTable[1,] <- lydaValues
 
+###The line below does the same thing appearantly
+
+amIdumb <- twListToDF(lookupUsers('lydakrewson'))
