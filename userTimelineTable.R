@@ -7,8 +7,12 @@ statusCollector <- function(handle){
 
 twitterStatusDF <- function(handles){
  twitDF <- as.data.frame(sapply(handles, statusCollector))
- return(twitDF)
+ return(rbindlist(twitDF))
 }
+
+
+
+
 mayoralData  <- read.csv("~/GitHub/MayoralTwitterData/Official Mayors List.csv", na.strings = c("N/A", NA))
 mayoralHandlesNull <- as.vector(mayoralData$Twitter_handle)
 mayoralHandles <- mayoralHandlesNull[!is.na(mayoralHandlesNull)]
