@@ -20,9 +20,12 @@ lydaValues
 getUserTable[1,] <- lydaValues
 
 ###Below function works
-
+mayoralData  <- read.csv("~/GitHub/MayoralTwitterData/Official Mayors List.csv", na.strings = c("N/A", NA))
+mayoralHandlesNull <- as.vector(mayoralData$Twitter_handle)
+mayoralHandles <- mayoralHandlesNull[!is.na(mayoralHandlesNull)]
 
 userTable <- function(userHandles){
  return(twListToDF(lookupUsers(userHandles)))
 }
 
+UT10 <- userTable(mayoralHandles[1:10])
