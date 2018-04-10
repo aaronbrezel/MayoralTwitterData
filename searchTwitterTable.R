@@ -33,17 +33,6 @@ searchtwitter5000 <- function(handle){
 }
 
 attempt <- sapply(mayoralHandles[1:10], searchtwitter5000)
-
-
-
-attemptDF <- sapply(attempt, twListToDF)
 count <- sapply(attempt, length)
-count[1] == 0
-
-a <- NULL
-for(i in count){
-  if(i == 0){
-    a <- c(a, i)
-  }
-}
-a
+a <- attempt[!count==0]
+attemptDF1 <- sapply(a, twListToDF)
