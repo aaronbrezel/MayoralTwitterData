@@ -25,7 +25,8 @@ mayoralHandlesNull <- as.vector(mayoralData$Twitter_handle)
 mayoralHandles <- mayoralHandlesNull[!is.na(mayoralHandlesNull)]
 
 userTable <- function(userHandles){
- return(twListToDF(lookupUsers(userHandles)))
+ ut <- (twListToDF(lookupUsers(userHandles)))
+ ut$followRequestSent <- NULL
+ return(ut)
 }
-
 UT10 <- userTable(mayoralHandles[1:10])

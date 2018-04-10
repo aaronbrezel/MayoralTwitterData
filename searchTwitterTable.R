@@ -26,3 +26,24 @@ jj <- as.data.frame(j)
 
 twitterSearchDF(mayoralHandles[1:10])
 k <- statusCollectorST(mayoralHandles[1:10])
+
+
+searchtwitter5000 <- function(handle){
+  return(searchTwitter(handle, n=5000))
+}
+
+attempt <- sapply(mayoralHandles[1:10], searchtwitter5000)
+
+
+
+attemptDF <- sapply(attempt, twListToDF)
+count <- sapply(attempt, length)
+count[1] == 0
+
+a <- NULL
+for(i in count){
+  if(i == 0){
+    a <- c(a, i)
+  }
+}
+a

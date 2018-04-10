@@ -20,3 +20,6 @@ attempt <- twitterStatusDF(c('MartyHandlon','MayorHam', 'WoodfinForBham'))
 
 ##DO NOT RUN UNTIL ON ECON LAB COMPUTERS
 ##BigAssData <- twitterStatusDF(mayoralHandles)
+
+
+
