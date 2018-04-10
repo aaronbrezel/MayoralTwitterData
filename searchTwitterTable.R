@@ -14,7 +14,7 @@ mayoralData  <- read.csv("~/GitHub/MayoralTwitterData/Official Mayors List.csv",
 mayoralHandlesNull <- as.vector(mayoralData$Twitter_handle)
 mayoralHandles <- mayoralHandlesNull[!is.na(mayoralHandlesNull)]
 
-
+#Nope
 ST10 <- twitterSearchDF(mayoralHandles[1:10])
 
 mayoralHandles[1:10]
@@ -24,6 +24,7 @@ twitterSearchDF('lydakrewson')
 j <- statusCollectorST("lydakrewson")
 jj <- as.data.frame(j)
 
+##Doesn't work
 twitterSearchDF(mayoralHandles[1:10])
 k <- statusCollectorST(mayoralHandles[1:10])
 
@@ -32,7 +33,8 @@ searchtwitter5000 <- function(handle){
   return(searchTwitter(handle, n=5000))
 }
 
+## Doessn't return what we want
 attempt <- sapply(mayoralHandles[1:10], searchtwitter5000)
 count <- sapply(attempt, length)
 a <- attempt[!count==0]
-attemptDF1 <- sapply(a, twListToDF)
+attemptDF2 <- sapply(a, twListToDF)
