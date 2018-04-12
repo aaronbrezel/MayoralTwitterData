@@ -1,3 +1,7 @@
+library(data.table)
+
+rm(list=ls())
+
 userTable <- function(userHandles){
   ut <- (twListToDF(lookupUsers(userHandles)))
   ut$followRequestSent <- NULL
@@ -14,8 +18,14 @@ twitterStatusDF <- function(handles){
 }
 
 statusCollectorST <- function(handle){
-  return(twListToDF(searchTwitter(handle, n=1000)))
+  status <- searchTwitter(handle, n=1000)
+  if (length(status) == 0){
+    return()
+  } else if (length(status) > 0) {
+    return(twListToDF(status))
+  }
 }
+
 
 lyda1 <- userTable('lydakrewson')
 lyda2 <- twitterStatusDF('lydakrewson')
@@ -36,7 +46,7 @@ createProfile <- function(handle){
   return(user)
 }
 
-lyda <- createProfile("lydakrewson")
+createProfile10 <- sapply(mayoralHandles[1:10], createProfile)
 
-
+save(createProfile10, file = "createProfile10.Rda")
 
