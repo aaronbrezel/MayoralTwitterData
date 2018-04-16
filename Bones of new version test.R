@@ -27,15 +27,6 @@ statusCollectorST <- function(handle){
 }
 
 
-lyda1 <- userTable('lydakrewson')
-lyda2 <- twitterStatusDF('lydakrewson')
-lyda3 <- statusCollectorST('lydakrewson')
-
-lyda <- NULL
-lyda$userInfo <- lyda1
-lyda$tweets <- lyda2
-lyda$mentions <- lyda3
-
 ### FORMAL FUNCTION HERE
 
 createProfile <- function(handle){
@@ -49,4 +40,7 @@ createProfile <- function(handle){
 createProfile10 <- sapply(mayoralHandles[1:10], createProfile)
 
 save(createProfile10, file = "createProfile10.Rda")
+getwd()
+load("~/Applied Statistical Programming/MayoralTwitterData/createProfile10.Rda")
 
+str(createProfile10[[1]])
