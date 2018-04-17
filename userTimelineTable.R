@@ -18,3 +18,4 @@ mayoralHandles <- mayoralHandlesNull[!is.na(mayoralHandlesNull)]
 
 TS10 <- twitterStatusDF(mayoralHandles[1:10])
 
+
