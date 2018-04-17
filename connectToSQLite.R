@@ -11,7 +11,8 @@ db <- dbConnect(RSQLite::SQLite(), "mayoralTwitterData.db")
 dbWriteTable(db, "handleData", UT10)
 dbWriteTable(db, "tweetData", as.data.frame(TS10))
 dbListTables(db)
-dbRemoveTable(db, "handleData")
+dbSendQuery(conn = db, "")
+dbc
 ?dbWriteTable
 ?dbGetQuery
 
