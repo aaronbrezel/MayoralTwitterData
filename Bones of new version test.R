@@ -5,6 +5,10 @@ setup_twitter_oauth("lmDdwehy7ZnAUPh5AH6Y3fbAR","2A62GUU7eshn5lZ3rHZ0MsepkFgbwG4
 
 rm(list=ls())
 
+mayoralData  <- read.csv("~/GitHub/MayoralTwitterData/Official Mayors List.csv", na.strings = c("N/A", NA))
+mayoralHandlesNull <- as.vector(mayoralData$Twitter_handle)
+mayoralHandles <- mayoralHandlesNull[!is.na(mayoralHandlesNull)]
+
 userTable <- function(userHandles){
   ut <- (twListToDF(lookupUsers(userHandles)))
   ut$followRequestSent <- NULL
@@ -23,10 +27,12 @@ twitterStatusDF <- function(handles){
 statusCollectorST <- function(handle){
   status <- searchTwitter(handle, n=1000)
   if (length(status) == 0){
-    return(NULL)
+    return(list())
   } else if (length(status) > 0) {
-    return(twListToDF(status))
+    status <- twListToDF(status)
+    status$mayoralHandle <- handle
   }
+  return(status)
 }
 
 
@@ -46,7 +52,7 @@ marty <- createProfile("MartyHandlon")
 
 ##=======
 setwd("~/GitHub/MayoralTwitterData/Mayoral profiles")
-createProfile10 <- sapply(mayoralHandles[1:2], function(x){
+createProfile2 <- sapply(mayoralHandles[1:2], function(x){
   user <- createProfile(x)
   saveRDS(object = user, file = paste(x,".rds"))
 } )
