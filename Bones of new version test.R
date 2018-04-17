@@ -37,6 +37,3 @@ createProfile <- function(handle){
 }
 
 lyda <- createProfile("lydakrewson")
-
-
-
