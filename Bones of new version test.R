@@ -1,3 +1,7 @@
+library(data.table)
+
+rm(list=ls())
+
 userTable <- function(userHandles){
   ut <- (twListToDF(lookupUsers(userHandles)))
   ut$followRequestSent <- NULL
@@ -14,17 +18,14 @@ twitterStatusDF <- function(handles){
 }
 
 statusCollectorST <- function(handle){
-  return(twListToDF(searchTwitter(handle, n=1000)))
+  status <- searchTwitter(handle, n=1000)
+  if (length(status) == 0){
+    return()
+  } else if (length(status) > 0) {
+    return(twListToDF(status))
+  }
 }
 
-lyda1 <- userTable('lydakrewson')
-lyda2 <- twitterStatusDF('lydakrewson')
-lyda3 <- statusCollectorST('lydakrewson')
-
-lyda <- NULL
-lyda$userInfo <- lyda1
-lyda$tweets <- lyda2
-lyda$mentions <- lyda3
 
 ### FORMAL FUNCTION HERE
 
@@ -36,4 +37,16 @@ createProfile <- function(handle){
   return(user)
 }
 
+<<<<<<< HEAD
 lyda <- createProfile("lydakrewson")
+=======
+createProfile10 <- sapply(mayoralHandles[1:10], createProfile)
+
+load("UT10.rda")
+
+save(createProfile10, file = "createProfile10.Rda")
+getwd()
+load("~/Applied Statistical Programming/MayoralTwitterData/createProfile10.Rda")
+
+str(createProfile10[[1]])
+>>>>>>> e12a970dfb4b34bf767d29f2f12b16fbf2d36ce9
