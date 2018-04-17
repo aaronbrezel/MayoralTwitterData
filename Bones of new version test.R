@@ -39,6 +39,8 @@ createProfile <- function(handle){
 
 createProfile10 <- sapply(mayoralHandles[1:10], createProfile)
 
+load("UT10.rda")
+
 save(createProfile10, file = "createProfile10.Rda")
 getwd()
 load("~/Applied Statistical Programming/MayoralTwitterData/createProfile10.Rda")
