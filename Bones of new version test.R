@@ -1,4 +1,7 @@
 library(data.table)
+library("twitteR")
+setup_twitter_oauth("lmDdwehy7ZnAUPh5AH6Y3fbAR","2A62GUU7eshn5lZ3rHZ0MsepkFgbwG4qegMya4AyoydEmFxKQa")
+
 
 rm(list=ls())
 
@@ -20,7 +23,7 @@ twitterStatusDF <- function(handles){
 statusCollectorST <- function(handle){
   status <- searchTwitter(handle, n=1000)
   if (length(status) == 0){
-    return()
+    return(NULL)
   } else if (length(status) > 0) {
     return(twListToDF(status))
   }
@@ -37,10 +40,16 @@ createProfile <- function(handle){
   return(user)
 }
 
-<<<<<<< HEAD
+##<<<<<<< HEAD
 lyda <- createProfile("lydakrewson")
-=======
-createProfile10 <- sapply(mayoralHandles[1:10], createProfile)
+marty <- createProfile("MartyHandlon")
+
+##=======
+setwd("~/GitHub/MayoralTwitterData/Mayoral profiles")
+createProfile10 <- sapply(mayoralHandles[1:2], function(x){
+  user <- createProfile(x)
+  saveRDS(object = user, file = paste(x,".rds"))
+} )
 
 load("UT10.rda")
 
@@ -49,4 +58,4 @@ getwd()
 load("~/Applied Statistical Programming/MayoralTwitterData/createProfile10.Rda")
 
 str(createProfile10[[1]])
->>>>>>> e12a970dfb4b34bf767d29f2f12b16fbf2d36ce9
+##>>>>>>> e12a970dfb4b34bf767d29f2f12b16fbf2d36ce9
