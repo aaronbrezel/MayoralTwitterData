@@ -62,7 +62,8 @@ dbSendQuery(conn = db,
 
 dbSendQuery(conn= db, 
             "CREATE TABLE IF NOT EXISTS 'mentionData' ( 
-            `text` TEXT, `favorited` INTEGER, 
+            `text` TEXT, 
+            `favorited` INTEGER, 
             `favoriteCount` REAL, 
             `replyToSN` TEXT, 
             `created` TEXT, 
@@ -93,11 +94,13 @@ setwd("C:/Users/aaron/OneDrive/Documents/Applied Statistical Programming/Mayoral
 
 #As of right now, you still need to load each individual mayor's proflie before you can send the data to SQL. Still working on a way to automate it
 load("tabbowling.rds")
+load("WoodfinForBham.rds")
 #the object user contains userInfo, tweets and mentions. Those correspond to the mayorUserData, tweetData and mentionData tables in the SQLite database
 
 
-insertToDB <- function(mayorProfile){
-  
+insertToDB <- function(fileName){
+  load(fileName)
+  mayorProfile <- user
   #Insert userInfo into mayorUserData
   mayorProfile$userInfo$created <- as.character(user$userInfo$created) #Changes datatype of the created column from POSIXct to character. SQLite handles this type better
   insertMayorUserData <- dbSendQuery(db, 
@@ -124,9 +127,44 @@ insertToDB <- function(mayorProfile){
   dbClearResult(insertMayorUserData)  
   
   #insert tweets to tweetData
-  mayorProfile$tweets$created <- as.character(mayorProfile$tweets$created) #same thing with created
-  insertTweetData <- dbSendQuery(db, 
-                                     "INSERT OR IGNORE INTO tweetData 
+  if(mayoralProfile$tweets == 0){
+    
+  }
+  else{
+    mayorProfile$tweets$created <- as.character(mayorProfile$tweets$created) #same thing with created
+    insertTweetData <- dbSendQuery(db, 
+                                   "INSERT OR IGNORE INTO tweetData 
+                                   VALUES (
+                                   :text,
+                                   :favorited, 
+                                   :favoriteCount,
+                                   :replyToSN,
+                                   :created,
+                                   :truncated,
+                                   :replyToSID,
+                                   :id,
+                                   :replyToUID,
+                                   :statusSource,
+                                   :screenName,
+                                   :retweetCount,
+                                   :isRetweet,
+                                   :retweeted,
+                                   :longitude,
+                                   :latitude);"
+    )
+    dbBind(insertTweetData, params = mayorProfile$tweets)
+    dbClearResult(insertTweetData) 
+  }
+  
+  
+  #insert mentions to mentionData
+  if(length(mayorProfile$mentions) == 0){
+    
+  }
+  else{
+    mayorProfile$mentions$created <- as.character(mayorProfile$mentions$created)
+    insertMentionData <- dbSendQuery(db, 
+                                     "INSERT OR IGNORE INTO mentionData 
                                      VALUES (
                                      :text,
                                      :favorited, 
@@ -143,39 +181,26 @@ insertToDB <- function(mayorProfile){
                                      :isRetweet,
                                      :retweeted,
                                      :longitude,
-                                     :latitude);"
-  )
-  dbBind(insertTweetData, params = mayorProfile$tweets)
-  dbClearResult(insertTweetData) 
-  
-  #insert mentions to mentionData
-  mayorProfile$tweets$created <- as.character(mayorProfile$tweets$created)
-  insertTweetData <- dbSendQuery(db, 
-                                 "INSERT OR IGNORE INTO tweetData 
-                                 VALUES (
-                                 :text,
-                                 :favorited, 
-                                 :favoriteCount,
-                                 :replyToSN,
-                                 :created,
-                                 :truncated,
-                                 :replyToSID,
-                                 :id,
-                                 :replyToUID,
-                                 :statusSource,
-                                 :screenName,
-                                 :retweetCount,
-                                 :isRetweet,
-                                 :retweeted,
-                                 :longitude,
-                                 :latitude);"
-  )
-  dbBind(insertTweetData, params = mayorProfile$tweets)
-  dbClearResult(insertTweetData) 
-  
-  
-  
-  class(user$userInfo$created)
-  
-  
+                                     :latitude,
+                                     :mayoralHandle);"
+    )
+    dbBind(insertMentionData, params = mayorProfile$mentions)
+    dbClearResult(insertMentionData) 
+  }
 } 
+
+
+fileVector <- list.files(path = "C:/Users/aaron/OneDrive/Documents/Applied Statistical Programming/MayoralTwitterData/Mayoral Profiles")
+fileVector
+load(fileVector[12])
+user
+
+sapply(fileVector, insertToDB)
+
+insertToDB("tabbowling.rds")
+fileVector
+
+load("MayorHam.rds")
+user
+test <- data.frame()
+length(test) == 0
