@@ -127,7 +127,7 @@ insertToDB <- function(fileName){
   dbClearResult(insertMayorUserData)  
   
   #insert tweets to tweetData
-  if(mayoralProfile$tweets == 0){
+  if(length(mayorProfile$tweets) == 0){
     
   }
   else{
@@ -190,12 +190,9 @@ insertToDB <- function(fileName){
 } 
 
 
-fileVector <- list.files(path = "C:/Users/aaron/OneDrive/Documents/Applied Statistical Programming/MayoralTwitterData/Mayoral Profiles")
-fileVector
-load(fileVector[12])
-user
-
-sapply(fileVector, insertToDB)
+fileVector <- list.files(path = "C:/Users/aaron/OneDrive/Documents/Applied Statistical Programming/MayoralTwitterData/alexTest") #gets list of file names in that path
+load(fileVector[c])
+sapply(fileVector[2:4], insertToDB) #runs the insertToDB function on every single mayor!
 
 insertToDB("tabbowling.rds")
 fileVector
