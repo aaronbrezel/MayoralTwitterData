@@ -5,7 +5,7 @@ setup_twitter_oauth("lmDdwehy7ZnAUPh5AH6Y3fbAR","2A62GUU7eshn5lZ3rHZ0MsepkFgbwG4
 
 rm(list=ls())
 
-mayoralData  <- read.csv("Official Mayors List.csv", na.strings = c("N/A", NA))
+mayoralData  <- read.csv("~/GitHub/MayoralTwitterData/Official Mayors List.csv", na.strings = c("N/A", NA))
 mayoralHandlesNull <- as.vector(mayoralData$Twitter_handle)
 mayoralHandles <- mayoralHandlesNull[!is.na(mayoralHandlesNull)]
 
@@ -75,7 +75,7 @@ createProfile <- function(handle){
 
 
 ##=======
-setwd("~Mayoral profiles")
+setwd("~/GitHub/MayoralTwitterData/Mayoral profiles")
 
 createProfile2 <- sapply(mayoralHandles[29:32], function(x){
   user <- createProfile(x)
