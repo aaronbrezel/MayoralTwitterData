@@ -24,7 +24,7 @@ userTable <- function(userHandles) {
 }
 
 ly <- userTable("lydakrewson")
-yuma <- userTable(mayoralHandles[31])
+yuma <- userTable(mayoralHandles[3031])
 
 
 statusCollector <- function(handle){
@@ -88,6 +88,10 @@ createProfile <- function(handle){
   return(user)
 }
 
+lydalyda <- createProfile("lydakrewson")
+yumayuma <- createProfile(mayoralHandles[31])
+
+
 ##=======
 setwd("~Mayoral profiles")
 
@@ -96,7 +100,7 @@ createProfile2 <- sapply(mayoralHandles[29:32], function(x){
   save(object = user, file = paste(x,".rds", sep = ""))
 } )
 
-load("MayorHam.rds")
+load("mayorbarney.rds")
 
 
 save(createProfile10, file = "createProfile10.Rda")
