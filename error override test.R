@@ -19,25 +19,27 @@ userTable <- function(userHandles) {
       return(user)
     },
     error=function(cond) {
-      return(list())
+      return(data.frame())
     })
 }
 
-
+ly <- userTable("lydakrewson")
+yuma <- userTable(mayoralHandles[31])
 
 
 statusCollector <- function(handle){
   out <- tryCatch({
-  UT <- userTimeline(handle, n=3200, includeRts = TRUE, excludeReplies = FALSE)
-  UT <- twListToDF(UT)
-  return(UT)
+    UT <- userTimeline(handle, n=3200, includeRts = TRUE, excludeReplies = FALSE)
+    UT <- twListToDF(UT)
+    return(UT)
   },
   error = function(cond){
-    return(list())
+    return(data.frame())
   })
 }
 
-
+lyd <- statusCollector("lydakrewson")
+yum <- statusCollector(mayoralHandles[31])
 
 #twitterStatusDF <- function(handles){
  # if(is.na(statusCollector(handles))){
@@ -53,7 +55,7 @@ statusCollector <- function(handle){
 statusCollectorST <- function(handle){
   status <- searchTwitter(handle, n=1000)
   if (length(status) == 0){
-    return(list())
+    return(data.frame())
   } else if (length(status) > 0) {
     status <- twListToDF(status)
     status$mayoralHandle <- handle
@@ -61,12 +63,25 @@ statusCollectorST <- function(handle){
   return(status)
 }
 
+lyda <- statusCollectorST("lydakrewson")
+yu <- statusCollectorST(mayoralHandles[31])
 
+
+
+lydaK <- NULL
+lydaK$userInfo <- ly
+lydaK$tweets <- lyd
+lydaK$mentions <- lyda
+
+yumaT <- NULL
+yumaT$userInfo <- yuma
+yumaT$tweets <- yum
+yumaT$mentions <- yu
 
 ### FORMAL FUNCTION HERE
 
 createProfile <- function(handle){
-  user <- NULL
+  user <- list()
   user$userInfo <- userTable(handle)
   user$tweets <- statusCollector(handle)
   user$mentions <- statusCollectorST(handle)
