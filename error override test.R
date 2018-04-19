@@ -23,8 +23,6 @@ userTable <- function(userHandles) {
     })
 }
 
-ly <- userTable("lydakrewson")
-yuma <- userTable(mayoralHandles[3031])
 
 
 statusCollector <- function(handle){
@@ -38,8 +36,7 @@ statusCollector <- function(handle){
   })
 }
 
-lyd <- statusCollector("lydakrewson")
-yum <- statusCollector(mayoralHandles[31])
+
 
 #twitterStatusDF <- function(handles){
  # if(is.na(statusCollector(handles))){
@@ -63,20 +60,7 @@ statusCollectorST <- function(handle){
   return(status)
 }
 
-lyda <- statusCollectorST("lydakrewson")
-yu <- statusCollectorST(mayoralHandles[31])
 
-
-
-lydaK <- NULL
-lydaK$userInfo <- ly
-lydaK$tweets <- lyd
-lydaK$mentions <- lyda
-
-yumaT <- NULL
-yumaT$userInfo <- yuma
-yumaT$tweets <- yum
-yumaT$mentions <- yu
 
 ### FORMAL FUNCTION HERE
 
@@ -88,8 +72,6 @@ createProfile <- function(handle){
   return(user)
 }
 
-lydalyda <- createProfile("lydakrewson")
-yumayuma <- createProfile(mayoralHandles[31])
 
 
 ##=======
