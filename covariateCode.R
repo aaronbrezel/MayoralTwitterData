@@ -53,8 +53,8 @@ table(is.na(profiles_Mayor$gini)) #table to looks at
 mayor_Covariates <- filter(profiles_Mayor, !is.na(profiles_Mayor$gini)) #all ready mayor covariates
 
 #still need to rename a bunch of the columns because they are yucky
-save(profiles, file = "profiles_unjoined") #save unjoined profiles from beginning since it takes like 2 minutes to run
-save(mayor_Covariates, file = "mayor_Covariates") #save current results
+save(profiles, file = "profiles_unjoined.rds") #save unjoined profiles from beginning since it takes like 2 minutes to run
+save(mayor_Covariates, file = "mayor_Covariates.rds") #save current results
 
 
 
