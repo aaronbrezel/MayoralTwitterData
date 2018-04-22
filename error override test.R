@@ -77,9 +77,9 @@ createProfile <- function(handle){
 ##=======
 setwd("~/GitHub/MayoralTwitterData/Mayoral profiles")
 
-createProfile2 <- sapply(mayoralHandles[595:906], function(x){
-  user <- createProfile(x)
-  save(object = user, file = paste(x,".rds", sep = ""))
+createProfile2 <- sapply(mayoralHandles[760:906], function(x){
+  user <- createProfile("CarolDodge17")
+  save(object = user, file = paste("CarolDodge17.rds", sep = ""))
 } )
 
 MH <- load("MartyHandlon.rds")
@@ -93,3 +93,5 @@ load("~/Applied Statistical Programming/MayoralTwitterData/createProfile10.Rda")
 
 str(createProfile10[[1]])
 ##>>>>>>> e12a970dfb4b34bf767d29f2f12b16fbf2d36ce9
+
+mayoralHandles
