@@ -48,14 +48,14 @@ createProfile <- function(handle){
 
 ##=======
 setwd("~Mayoral profiles")
-createProfile2 <- sapply(mayoralHandles[1:4], function(x){
+createProfile2 <- sapply(mayoralHandles[1:30], function(x){
   user <- createProfile(x)
   save(object = user, file = paste(x,".rds", sep = ""))
 } )
 
 
-load("MayorHam.rds")
-
+a <- load("MayorHam.rds")
+tabbowling <- readRDS("~/tabbowling.rds")
 
 save(createProfile10, file = "createProfile10.Rda")
 getwd()

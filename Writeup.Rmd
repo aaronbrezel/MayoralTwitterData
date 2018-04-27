@@ -1,0 +1,28 @@
+---
+title: "Twitter Final Writeup"
+author: "Jonah Klein-Barton"
+date: "April 27, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Project Overview
+
+Our group was tasked with stealing twitter data from mayors of American cities over 30,000 people, putting it into a database, and analyzing it.The database can be found here: <https://wustl.app.box.com/file/289481874492>.
+
+
+
+## Visualization of data
+
+I have succesfully embedded a plot and am proud of myself
+
+```{r pressure, echo=FALSE, warning=FALSE}
+library(ggplot2)
+load("mayor_Covariates.rds")
+ggplot(data=mayor_Covariates)+geom_bar(mapping = aes(x = verified)) +labs(title = "Verificatation of Mayoral Twitter Accounts")
+```
+
+

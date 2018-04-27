@@ -1,5 +1,6 @@
 rm(list=ls())
 
+library(ggplot2)
 load("mayor_Covariates.rds")
 mayoralData  <- read.csv("Official Mayors List.csv", na.strings = c("N/A", NA))
 mayoralData <- mayoralData[!is.na(mayoralData$Twitter_handle),]
@@ -42,6 +43,7 @@ ggplot(data = mayor_Covariates) +
 
 #### REAL NICE LOOKING PLOT
 ggplot(data = mayor_Covariates, mapping = aes(x = log(statusesCount), y = log(followersCount))) + geom_point(na.rm = TRUE)
+
 
 
 ggplot(data = mayor_Covariates, mapping = aes(x = totalPopulation, y = followersCount)) + geom_point(na.rm = TRUE)
