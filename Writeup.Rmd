@@ -15,14 +15,47 @@ Our group was tasked with stealing twitter data from mayors of American cities o
 
 
 
-## Visualization of data
+## **Visualization of data**
+
+## Account Verification
+
 
 I have succesfully embedded a plot and am proud of myself
 
-```{r pressure, echo=FALSE, warning=FALSE}
+```{r verif, echo=FALSE, warning=FALSE}
 library(ggplot2)
 load("mayor_Covariates.rds")
 ggplot(data=mayor_Covariates)+geom_bar(mapping = aes(x = verified)) +labs(title = "Verificatation of Mayoral Twitter Accounts")
 ```
+
+## Correlation between tweets and followers
+
+
+```{r followers, echo=FALSE, warning=FALSE}
+library(ggplot2)
+load("mayor_Covariates.rds")
+  #Followers between 0 and 10000
+ggplot(data = mayor_Covariates) +
+  geom_histogram(mapping = aes(x = followersCount), breaks = seq(0, 10000, by = 100)) +
+  labs(title = "Follower Distribution for Followers <= 10,000")
+
+  #More than 10000 followers
+ggplot(data = mayor_Covariates) +
+  geom_histogram(mapping = aes(x = followersCount), breaks = seq(10001, 300000, by = 10000)) + 
+  labs(title = "Follower Distribution for Followers > 10,000")
+
+```
+
+## Correlation between tweets and followers
+
+Another one
+
+```{r tweet, echo=FALSE, warning=FALSE}
+library(ggplot2)
+load("mayor_Covariates.rds")
+ggplot(data = mayor_Covariates, mapping = aes(x = log(statusesCount), y = log(followersCount))) + geom_point(na.rm = TRUE) +
+  labs(title = "Log(Statuses) v. Log(followers) for Mayoral Accounts")
+```
+
 
 
