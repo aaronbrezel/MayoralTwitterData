@@ -197,7 +197,11 @@ sapply(fileVector[2:4], insertToDB) #runs the insertToDB function on every singl
 insertToDB("tabbowling.rds")
 fileVector
 
-load("MayorHam.rds")
-user
-test <- data.frame()
-length(test) == 0
+setwd("C:/Users/aaron/Downloads/mayoralTwitterData.db")
+
+db <- dbConnect(RSQLite::SQLite(), "mayoralTwitterData.db")
+
+
+test <- dbGetQuery(db, 'SELECT * FROM tweetData LIMIT 346006;')
+
+dbGetQuery(db, 'SHOW TABLES;')
