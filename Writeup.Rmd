@@ -1,0 +1,67 @@
+---
+title: "Twitter Final Writeup"
+author: "Jonah Klein-Barton"
+date: "April 27, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Project Overview
+
+Our group was tasked with stealing twitter data from mayors of American cities over 30,000 people, putting it into a database, and analyzing it. The database can be found here: <https://wustl.app.box.com/file/289481874492>. In addition, we looked at some ways of visualizing trends we found within the data, as shown below.
+
+
+## **Visualization of data**
+
+## Account Verification
+
+When thinking about mayoral twitter accounts for large cities, one migh expect them to be officially verified by twitter. However, very few are, as seen in the plot below. Out of 719 accounts in this data set, only 65 were verified.
+
+```{r verif, echo=FALSE, warning=FALSE}
+library(ggplot2)
+load("profiles_unjoined.rds")
+ggplot(data=profiles)+geom_bar(mapping = aes(x = verified)) + labs(title = "Verificatation of Mayoral Twitter Accounts")
+summary(profiles$verified)
+```
+
+## Default Language
+
+```{r lang, echo=FALSE, warning=FALSE}
+library(ggplot2)
+load("profiles_unjoined.rds")
+ggplot(data=profiles)+geom_bar(mapping = aes(x = lang)) + labs(title = "Default Language Settings of Mayoral Twitter Accounts")
+summary(as.factor(profiles$lang))
+```
+
+
+## Distribution of # of Followers
+
+
+```{r followers, echo=FALSE, warning=FALSE}
+library(ggplot2)
+load("mayor_Covariates.rds")
+  ggplot(data = mayor_Covariates) +
+  geom_histogram(mapping = aes(x = log(followersCount)), binwidth = 1) +
+  labs(title = "Follower Distribution for Mayoral Twitter Accounts")
+
+```
+
+## Correlation between Tweets and Followers
+
+By plotting the number of followers a mayor has against both how often they tweet and the population of their city, it seems as though there is more of a correlation between how often they tweet, rather than how big the city is. There are probably many other factors at play here, but it's interesting to note that one thing this does tell us is that people will not neccecarily follow their mayor's twitter unless it's actually giving them information. 
+
+```{r tweet, echo=FALSE, warning=FALSE}
+library(ggplot2)
+load("mayor_Covariates.rds")
+ggplot(data = mayor_Covariates, mapping = aes(x = log(statusesCount), y = log(followersCount))) + geom_point(na.rm = TRUE) +
+  labs(title = "Log(Statuses) v. Log(followers) for Mayoral Accounts")
+
+ggplot(data = mayor_Covariates, mapping = aes(x = log(totalPopulation), y = log(followersCount))) + geom_point(na.rm = TRUE) +
+  labs(title = "Log(Population) v. Log(followers) for Mayoral Accounts")
+```
+
+
+
