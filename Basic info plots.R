@@ -1,7 +1,13 @@
+## Designed for inserstion into the R Markdown file
+
 rm(list=ls())
 
+##Loading needed packages and datasets
+
+library(twitteR)
 library(ggplot2)
 load("mayor_Covariates.rds")
+load("profiles_unjoined.rds")
 mayoralData  <- read.csv("Official Mayors List.csv", na.strings = c("N/A", NA))
 mayoralData <- mayoralData[!is.na(mayoralData$Twitter_handle),]
 cityData <- read.csv("placeData.csv")
@@ -24,30 +30,35 @@ userTable <- function(userHandles) { #userTable function to grab mayor twitter p
 profiles <- sapply(mayoralHandles, userTable)
 profiles <- rbindlist(profiles) #rbind for a df
 
-ggplot(data=mayor_Covariates)+geom_bar(mapping = aes(x = verified)) ## Plot of how many accounts are verified vs. unverified
+ggplot(data=mayor_Covariates)+geom_bar(mapping = aes(x = verified)) +labs(title = "Verificatation of Mayoral Twitter Accounts") ## Plot of how many accounts are verified vs. unverified
 
-ggplot(data=mayor_Covariates)+geom_bar(mapping = aes(x = lang)) ## Mayors default language settings
+table(profiles$verified) ## Gives quantities of the two factors
 
-count(mayor_Covariates$lang == "es")
+ggplot(data=profiles)+geom_bar(mapping = aes(x = lang)) ## Mayors default language settings
+
+
+
+order(profiles$lang) ## Identifying the non-english default accounts
+profiles[343]
+profiles[474]
+
 
 ##Followercount plots
 
-  #Followers between 0 and 10000
+  #Logged followerscount to make it easy to look at all the data on one graph, also made it fall into a nice nomal-ish distribution
 ggplot(data = mayor_Covariates) +
-  geom_histogram(mapping = aes(x = followersCount), breaks = seq(0, 10000, by = 100))
-
-  #More than 10000 followers
-ggplot(data = mayor_Covariates) +
-  geom_histogram(mapping = aes(x = followersCount), breaks = seq(10000, 300000, by = 10000))
+  geom_histogram(mapping = aes(x = log(followersCount)), binwidth = 1) +
+  labs(title = "Follower Distribution for Mayoral Twitter Accounts")
 
 
-#### REAL NICE LOOKING PLOT
-ggplot(data = mayor_Covariates, mapping = aes(x = log(statusesCount), y = log(followersCount))) + geom_point(na.rm = TRUE)
+## Looking at # of followers, # of statuses, and population
 
+  # Plotting log(statuses) against log(followers)
+ggplot(data = mayor_Covariates, mapping = aes(x = log(statusesCount), y = log(followersCount))) + geom_point(na.rm = TRUE) +
+  labs(title = "Log(Statuses) v. Log(followers) for Mayoral Accounts")
 
-
-ggplot(data = mayor_Covariates, mapping = aes(x = totalPopulation, y = followersCount)) + geom_point(na.rm = TRUE)
-
-ggplot(data = mayor_Covariates, mapping = aes(x = log(totalPopulation), y = log(followersCount))) + geom_point(na.rm = TRUE, alpha = 1/5)
+  #Plotting log(population) against log(followers)
+ggplot(data = mayor_Covariates, mapping = aes(x = log(totalPopulation), y = log(followersCount))) + geom_point(na.rm = TRUE) +
+  labs(title = "Log(Population) v. Log(followers) for Mayoral Accounts")
 
        

@@ -29,6 +29,8 @@ summary(profiles$verified)
 
 ## Default Language
 
+While the vast majority of twitter accounts looked at were set to English ("en") as a default language, there were two accounts which had Spanish ("es") as a default. These accounts belonged to Alberto Santos (@alberto_santos) and Carlos Gerlach (@CarlosGerlachR). However, after looking at these accounts I believe there may have been a data entry issue in the main data set.
+
 ```{r lang, echo=FALSE, warning=FALSE}
 library(ggplot2)
 load("profiles_unjoined.rds")
@@ -39,6 +41,7 @@ summary(as.factor(profiles$lang))
 
 ## Distribution of # of Followers
 
+To get a sense of the wildly different amount of followers some of these accounts have, we plotted the frequency of different amounts of followers. We can see that the logs of the number of followers follow an apporximately normal distribution, centered around log(followers) = 7, or e^7 == ~1096.
 
 ```{r followers, echo=FALSE, warning=FALSE}
 library(ggplot2)
