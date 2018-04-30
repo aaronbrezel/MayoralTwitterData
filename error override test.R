@@ -75,11 +75,11 @@ createProfile <- function(handle){
 
 
 ##=======
-setwd("~/GitHub/MayoralTwitterData/Mayoral profiles")
+setwd("C:/Users/aaron/OneDrive/Documents/Applied Statistical Programming/mayoralTwitter/Mayoral profiles")
 
-createProfile2 <- sapply(mayoralHandles[760:906], function(x){
-  user <- createProfile("CarolDodge17")
-  save(object = user, file = paste("CarolDodge17.rds", sep = ""))
+createProfile2 <- sapply(names_wo_data, function(x){
+  user <- createProfile(x)
+  save(object = user, file = paste(x, ".rds", sep = ""))
 } )
 
 MH <- load("MartyHandlon.rds")
@@ -95,3 +95,29 @@ str(createProfile10[[1]])
 ##>>>>>>> e12a970dfb4b34bf767d29f2f12b16fbf2d36ce9
 
 mayoralHandles
+
+
+
+setwd("C:/Users/aaron/OneDrive/Documents/Applied Statistical Programming/mayoralTwitterData")
+data <- readRDS("tweets.rds")
+names_with_data <- unique(data$screenName)
+load('profiles_unjoined.rds')
+
+
+'%ni%' = Negate('%in%') 
+
+
+names_wo_data = character()
+for(i in seq_along(profiles$screenName)){
+  if(profiles$screenName[i] %ni% names_with_data){
+    names_wo_data[i] <- profiles$screenName[i]
+  }
+}
+
+names_wo_data <- names_wo_data[!is.na(names_wo_data)]
+names_wo_data
+
+
+
+
+
