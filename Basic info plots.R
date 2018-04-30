@@ -8,27 +8,28 @@ library(twitteR)
 library(ggplot2)
 load("mayor_Covariates.rds")
 load("profiles_unjoined.rds")
-mayoralData  <- read.csv("Official Mayors List.csv", na.strings = c("N/A", NA))
-mayoralData <- mayoralData[!is.na(mayoralData$Twitter_handle),]
-cityData <- read.csv("placeData.csv")
-colnames(mayoralData)[9] <- "screenName"
-mayoralHandles <- mayoralData$screenName
 
+## BELOW IS CODE WHICH WAS USED TO GENERATE DATA, NO NEED TO RUN, TAKES A VERY LONG TIME TO EXECUTE
 
-userTable <- function(userHandles) { #userTable function to grab mayor twitter profile info
-  out <- tryCatch(
-    {
-      user <- lookupUsers(userHandles)
-      user <- twListToDF(user)
-      user$followRequestSent <- NULL
-      return(user)
-    },
-    error=function(cond) {
-      return(data.frame())
-    })
-}
-profiles <- sapply(mayoralHandles, userTable)
-profiles <- rbindlist(profiles) #rbind for a df
+## mayoralData  <- read.csv("Official Mayors List.csv", na.strings = c("N/A", NA))
+## mayoralData <- mayoralData[!is.na(mayoralData$Twitter_handle),]
+## cityData <- read.csv("placeData.csv")
+## colnames(mayoralData)[9] <- "screenName"
+## mayoralHandles <- mayoralData$screenName
+## userTable <- function(userHandles) { #userTable function to grab mayor twitter profile info
+##   out <- tryCatch(
+##     {
+##      user <- lookupUsers(userHandles)
+##      user <- twListToDF(user)
+##      user$followRequestSent <- NULL
+      ##       return(user)
+      ##     },
+    ##     error=function(cond) {
+      ##       return(data.frame())
+##     })
+## }
+## profiles <- sapply(mayoralHandles, userTable)
+## profiles <- rbindlist(profiles) #rbind for a df
 
 ggplot(data=mayor_Covariates)+geom_bar(mapping = aes(x = verified)) +labs(title = "Verificatation of Mayoral Twitter Accounts") ## Plot of how many accounts are verified vs. unverified
 
