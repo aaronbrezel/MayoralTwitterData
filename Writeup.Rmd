@@ -60,9 +60,11 @@ By plotting the number of followers a mayor has against both how often they twee
 library(ggplot2)
 load("mayor_Covariates.rds")
 ggplot(data = mayor_Covariates, mapping = aes(x = log(statusesCount), y = log(followersCount))) + geom_point(na.rm = TRUE) +
+  geom_smooth(method = "lm") +
   labs(title = "Log(Statuses) v. Log(followers) for Mayoral Accounts")
 
 ggplot(data = mayor_Covariates, mapping = aes(x = log(totalPopulation), y = log(followersCount))) + geom_point(na.rm = TRUE) +
+  geom_smooth(method = "lm") +
   labs(title = "Log(Population) v. Log(followers) for Mayoral Accounts")
 ```
 
