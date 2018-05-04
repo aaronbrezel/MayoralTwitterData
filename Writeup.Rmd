@@ -1,7 +1,7 @@
 ---
 title: "Twitter Final Writeup"
-author: "Jonah Klein-Barton"
-date: "April 27, 2018"
+author: "Jonah Klein-Barton, Aaron Brezel, Alex Petri"
+date: "May 9, 2018"
 output: html_document
 ---
 
@@ -66,5 +66,49 @@ ggplot(data = mayor_Covariates, mapping = aes(x = log(totalPopulation), y = log(
   labs(title = "Log(Population) v. Log(followers) for Mayoral Accounts")
 ```
 
+## Correlation between Millenial Make-up and Mayoral Responsiveness
+
+Here we look at responsiveness for a mayor as the percent of that mayor's millenial (categorized here as percent of the population 34 or below) increases, and vice verse for as the mayors non-millenial population increases. Generally, we find that responiveness increases as millenial composition increases and decreases as non-millenial composition increases. However, note the R^2 values, which show these variables account for very little of the model.
+
+```{r responsiveness, echo=FALSE, warning=FALSE}
+library(ggplot2)
+load("mayor_cov_replies.rds")
+
+#Millenial and Replies Plot
+ggplot(mayor_cov_replies, aes(x = log(millenial), y = log(replies))) +
+  geom_point(na.rm = TRUE, alpha = 1/5) +
+  geom_smooth(method = "lm") +
+  labs(x = "Logged Percent Millenial",
+       y = "Logged Replies Count for the Account",
+       title = "Log(Replies) v. Log(% Millenial) for Mayoral Accounts") +
+  annotate("text", x = 4, y = 5.3, label = "Adj R^2 = 0.01895") 
 
 
+#Boomers and Genx v Reply plot
+ggplot(mayor_cov_replies, aes(x = oldpeople, y = log(replies))) +
+  geom_point(na.rm = TRUE, alpha = 1/5) +
+  geom_smooth(method = "lm") +
+  annotate("text", x = 64, y = 5.2, label = "Adj R^2 = 0.006842") +
+  labs(x = "Percent Non-Millenial",
+       y = "Logged Replies Count for the Account",
+       title = "Log(Replies) v. % Non-Millenial (Boomer + GenX) for Mayoral Accounts")
+```
+
+## Correlation between General Mayor Twitter Activity and Mayoral Responsiveness
+
+It seems the best predictor of how often a mayor will respond to others is how often they tweet generally. Here we see a strong increase for replies as statuses increase, and the R^2 value shows this accounts for a large portion of the model. 
+
+```{r general responsiveness, echo=FALSE, warning=FALSE}
+library(ggplot2)
+load("mayor_cov_replies.rds")
+
+#Status and Replies  
+ggplot(mayor_cov_replies, aes(x = log(statusesCount), y = log(replies))) +
+  geom_point(na.rm = TRUE, alpha = 1/5) +
+  geom_smooth(method = "lm") +
+  annotate("text", x = 10, y = 0, label = "Adj R^2 = 0.4343") +
+  labs(x = "Logged Statuses Count",
+       y = "Logged Replies Count for the Account",
+       title = "Log(Replies) v. Log(Statuses Count) for Mayoral Accounts")
+       
+```

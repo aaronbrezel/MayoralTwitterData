@@ -60,17 +60,3 @@ load("mayor_Covariates.rds")
 
 
 
-
-
-
-#graphs
-library(dplyr)
-ages <- mayor_Covariates %>%
-  mutate(millenial = X10to14 + X15to17 + X18to24 + X25to34) #%>% #pew research has the cutoff age at 37
-  #mutate(boomer = X35to44 + X45to54 + X)
-
-
-ggplot(ages, aes(x = millenial, y = log(friendsCount))) +
-  geom_point()
-hist(log(ages$friends))
-
